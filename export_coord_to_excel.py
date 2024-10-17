@@ -4,13 +4,13 @@ import fiona
 import os
 
 # 读取GDB文件路径
-gdb_path = 'D:\GISdata\各县集体土地统计\YUTIAN.gdb'
+gdb_path = r'D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\cele_update1\cele_集体土地项目合并.gdb'
 
 # 获取所有图层名
 layers = fiona.listlayers(gdb_path)
 
 # 创建输出文件夹（如不存在）
-output_folder = "D:\GISdata\各县集体土地统计\gdb_to_excel"
+output_folder = r"D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\cele_update1"
 os.makedirs(output_folder, exist_ok=True)
 
 # 遍历每个图层
@@ -19,8 +19,8 @@ for layer in layers:
     gdf = gpd.read_file(gdb_path, layer=layer)
 
     # 检查图层中是否包含“乡镇”和“村”字段（可以根据具体字段名修改）
-    if 'XIANG_NAME' not in gdf.columns or 'QSDWMC' not in gdf.columns or 'QSXZ' not in gdf.columns:
-        print(f'图层 {layer} 不包含 "XIANG_NAME" 、 "QSDWMC"或"QSXZ" 字段，跳过...')
+    if 'XM' not in gdf.columns or 'QSDWMC' not in gdf.columns or 'QSXZ' not in gdf.columns:
+        print(f'图层 {layer} 不包含 "XM" 、 "QSDWMC"或"QSXZ" 字段，跳过...')
         continue
 
     # 创建一个用于存储拐点和属性的DataFrame
@@ -29,7 +29,7 @@ for layer in layers:
     # 遍历图层中的所有几何形状
     for idx, row in gdf.iterrows():
         geom = row.geometry
-        township = row['XIANG_NAME']  # 读取乡镇字段
+        township = row['XM']  # 读取乡镇字段
         village = row['QSDWMC']  # 读取村字段
         qs = row['QSXZ'] #读取权属性质
         coordinates_str = ""  # 用于存储该图斑的所有坐标字符串
@@ -43,12 +43,12 @@ for layer in layers:
 
             for polygon in polygons:
                 exterior_coords = polygon.exterior.coords
-                # 将每个拐点的坐标转换为字符串并连接
-                coordinates_str += "; ".join([f"({coord[0]}, {coord[1]})" for coord in exterior_coords])
+                # 将每个拐点的坐标转换为字符串并连接，并限制结果到四位小数
+                coordinates_str += "; ".join([f"({coord[0]:.4f}, {coord[1]:.4f})" for coord in exterior_coords])
 
         # 将该图斑的乡镇、村和坐标存入列表中
         points_data.append({
-            'XIANG_NAME': township,
+            'XM': township,
             'QSDWMC': village,
             'QSXZ': qs,
             '图斑编号': idx,
