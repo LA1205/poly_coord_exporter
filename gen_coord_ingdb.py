@@ -2,7 +2,7 @@ import arcpy
 
 '''
 # 设置工作空间
-workspace = r"C:\Users\fresh\Documents\ArcGIS\Projects\test001\test001.gdb"
+workspace = r"C:/Users/fresh/Documents/ArcGIS/Projects/test001/test001.gdb"
 arcpy.env.workspace = workspace
 
 # 获取所有面要素类
@@ -32,7 +32,7 @@ print("字段添加和更新完成！")
 '''
 
 # 设置工作空间
-workspace = "path_to_your_gdb"
+workspace = r"C:/Users/fresh/Documents/ArcGIS/Projects/test001/test001.gdb"
 arcpy.env.workspace = workspace
 
 # 获取所有面要素类
@@ -41,8 +41,8 @@ feature_classes = arcpy.ListFeatureClasses(feature_type='Polygon')
 # 遍历每个面要素类
 for fc in feature_classes:
     # 添加新的字段
-    field_name = "GDZB"
-    field_alias = "拐点坐标"
+    field_name = "GDZBXH"
+    field_alias = "拐点坐标(带序号)"
     field_type = "TEXT"
     field_length = 1000
     
