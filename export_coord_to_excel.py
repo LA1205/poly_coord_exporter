@@ -4,13 +4,13 @@ import fiona
 import os
 
 # 读取GDB文件路径
-gdb_path = r'D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\cele_update1\cele_集体土地项目合并.gdb'
+gdb_path = r'D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\hetian_update1\hetian_集体土地项目合并.gdb'
 
 # 获取所有图层名
 layers = fiona.listlayers(gdb_path)
 
 # 创建输出文件夹（如不存在）
-output_folder = r"D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\cele_update1"
+output_folder = r"D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\hetian_update1"
 os.makedirs(output_folder, exist_ok=True)
 
 # 遍历每个图层
