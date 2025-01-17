@@ -14,7 +14,7 @@ for fc in feature_classes:
     field_name = "GDZB"
     field_alias = "拐点坐标"
     field_type = "TEXT"
-    field_length = 1000
+    field_length = 8000
     
     if not arcpy.ListFields(fc, field_name):
         arcpy.AddField_management(fc, field_name, field_type, field_length=field_length, field_alias=field_alias)
@@ -44,7 +44,7 @@ for fc in feature_classes:
     field_name = "GDZBXH"
     field_alias = "拐点坐标(带序号)"
     field_type = "TEXT"
-    field_length = 1000
+    field_length = 8000
     
     if not arcpy.ListFields(fc, field_name):
         arcpy.AddField_management(fc, field_name, field_type, field_length=field_length, field_alias=field_alias)
