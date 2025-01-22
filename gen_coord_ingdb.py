@@ -23,16 +23,20 @@ for fc in feature_classes:
     with arcpy.da.UpdateCursor(fc, ["SHAPE@", field_name]) as cursor:
         for row in cursor:
             geometry = row[0]
-            points = geometry.getPart(0)
-            coordinates = ["({:.3f}, {:.3f})".format(point.X, point.Y) for point in points]
+            coordinates = []
+            for part in geometry:
+                for point in part:
+                    if point:
+                        coordinates.append("({:.3f}, {:.3f})".format(point.X, point.Y))
             row[1] = ", ".join(coordinates)
             cursor.updateRow(row)
 
 print("字段添加和更新完成！")
 '''
+import arcpy
 
 # 设置工作空间
-workspace = r"C:/Users/fresh/Documents/ArcGIS/Projects/test001/test001.gdb"
+workspace = r"path_to_your_gdb"
 arcpy.env.workspace = workspace
 
 # 获取所有面要素类
@@ -53,8 +57,11 @@ for fc in feature_classes:
     with arcpy.da.UpdateCursor(fc, ["SHAPE@", field_name]) as cursor:
         for row in cursor:
             geometry = row[0]
-            points = geometry.getPart(0)
-            coordinates = ["{}: ({:.3f}, {:.3f})".format(i+1, point.X, point.Y) for i, point in enumerate(points)]
+            coordinates = []
+            for part in geometry:
+                for i, point in enumerate(part):
+                    if point:
+                        coordinates.append("{}: ({:.3f}, {:.3f})".format(i+1, point.X, point.Y))
             row[1] = ", ".join(coordinates)
             cursor.updateRow(row)
 
