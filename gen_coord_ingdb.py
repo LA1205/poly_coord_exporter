@@ -36,11 +36,13 @@ print("字段添加和更新完成！")
 import arcpy
 
 # 设置工作空间
-workspace = r"path_to_your_gdb"
+workspace = r"D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\cele_update1\cele_update1.gdb"
 arcpy.env.workspace = workspace
 
 # 获取所有面要素类
-feature_classes = arcpy.ListFeatureClasses(feature_type='Polygon')
+#feature_classes = arcpy.ListFeatureClasses(feature_type='Polygon')
+# 或者获取指定名称的要素类
+feature_classes = arcpy.ListFeatureClasses(wild_card='CL2022_STZL_ADD')
 
 # 遍历每个面要素类
 for fc in feature_classes:

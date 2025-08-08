@@ -1,14 +1,14 @@
 import arcpy
 
 # 设置工作空间
-workspace = r'D:\BaiduSyncdisk\Work_Space\KB\Projetcs\hotan\cele_update1\cele_update1.gdb'
+workspace = r'D:\localdata\和田项目数据\project_db\提供绿环项目边界\策勒县\cele_update1.gdb'
 arcpy.env.workspace = workspace
 
 # 获取所有面要素类
 feature_classes = arcpy.ListFeatureClasses(feature_type='Polygon')
 
 # 指定要删除的字段名称
-field_to_delete = "GDZBXH"
+field_to_delete = "SZ"
 
 # 遍历每个面要素类
 for fc in feature_classes:
